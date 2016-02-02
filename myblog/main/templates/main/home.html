@@ -1,0 +1,16 @@
+{% extends "main/base.html" %}
+
+{% block header %}
+<h1>{{ blogInfo.title }}</h1>
+<p>{{ blogInfo.description }}</p>
+{% endblock %}
+
+{% block content %}
+
+{% if posts %}
+TODO: list posts here
+{% else %}
+<p>This blog has no posts yet.</p>
+{% endif %}
+
+{% endblock %}

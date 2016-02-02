@@ -9,7 +9,7 @@ class BlogInfo(models.Model):
     description = models.CharField(max_length = 100)
 
     def __str__(self):
-        return "%s %s" % (self.title)
+        return "%s" % (self.title)
 
 @python_2_unicode_compatible
 class User(models.Model):
