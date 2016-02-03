@@ -22,7 +22,7 @@ def new_post(req):
             post.author = req.user
             post.save()
 
-            return redirect("post", post_id = post.pk)
+            return redirect("main:post", post_id = post.pk)
 
     else:
         form = PostForm()
