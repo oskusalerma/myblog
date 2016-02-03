@@ -1,0 +1,36 @@
+body {
+    padding-top: 0.5em;
+    padding-left: 2em;
+}
+
+#header {
+    background-color: #87CEFA;
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+    width: 75%;
+}
+
+#header a {
+    color: black;
+    font-size: 36pt;
+    text-decoration: none;
+    font-family: "Luckiest Guy";
+}
+
+#header a:visited {
+    color: black;
+}
+
+label {
+    display: block;
+}
+
+#content {
+    margin-left: 3em;
+
+}
+
+.errorlist li {
+    border: 2px solid red;
+}

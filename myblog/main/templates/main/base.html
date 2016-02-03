@@ -1,17 +1,35 @@
+{% load staticfiles %}
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
 <title>{{ blogInfo.title }}</title>
-<!-- <link rel=stylesheet type="text/css" href="/static/style.css"> -->
+<link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
 
 <div id="header">
 {% block header %}
+<h1><a href="{% url 'main:home' %}">{{ blogInfo.title }}</a></h1>
+<p>{{ blogInfo.description }}</p>
 {% endblock %}
 </div>
+
+<div id="topbar">
+{% if user.is_authenticated %}
+<small><span>User: {{ user.get_username }}</span></small>
+<a href="{% url 'main:new-post' %}">New post</a>
+{% else %}
+<small><span>User: Not logged in</span></small>
+{% endif %}
+</div>
+
+<br>
 
 <div id="content">
 {% block content %}
