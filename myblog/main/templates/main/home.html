@@ -3,7 +3,9 @@
 {% block content %}
 
 {% if posts %}
-TODO: list posts here
+{% for post in posts %}
+ {% include "main/post-format.html" %}
+{% endfor %}
 {% else %}
 <p>This blog has no posts yet.</p>
 {% endif %}
