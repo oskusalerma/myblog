@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 
 from .models import BlogInfo, Post
 from .forms import PostForm
@@ -10,8 +10,11 @@ def home(req):
 
     return render(req, "main/home.html", {"posts" : posts, "blogInfo" : bi})
 
-# TODO: authenticate!
 def new_post(req):
+    if not req.user.is_authenticated():
+        # TODO: redirect to login page when we have such a thing
+        return HttpResponseForbidden("forbidden")
+
     bi = BlogInfo.objects.all()[0]
 
     if req.method == "POST":
