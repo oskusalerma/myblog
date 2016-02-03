@@ -9,8 +9,6 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    replaces = [(b'main', '0001_initial'), (b'main', '0002_bloginfo'), (b'main', '0003_auto_20160203_1035')]
-
     initial = True
 
     dependencies = [
