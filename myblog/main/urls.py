@@ -22,4 +22,5 @@ app_name = "main"
 urlpatterns = [
     url(r"^$", views.home, name = "home"),
     url(r"^new-post/$", views.new_post, name = "new-post"),
+    url(r"^post/(?P<post_id>[0-9]+)/$", views.post, name = "post"),
 ]

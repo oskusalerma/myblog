@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 
 from .models import BlogInfo, Post
@@ -28,3 +28,9 @@ def new_post(req):
         form = PostForm()
 
     return render(req, "main/new_post.html", {"form" : form, "blogInfo" : bi})
+
+def post(req, post_id):
+    bi = BlogInfo.objects.all()[0]
+    post = get_object_or_404(Post, pk = post_id)
+
+    return render(req, "main/post.html", {"post" : post, "blogInfo" : bi})

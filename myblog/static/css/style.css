@@ -34,3 +34,16 @@ label {
 .errorlist li {
     border: 2px solid red;
 }
+
+.post {
+    width: 40em;
+    /* background-color: ivory; */
+}
+
+h2 {
+    font-family: "Open Sans", sans-serif;
+}
+
+.post a:visited {
+    color: black;
+}
