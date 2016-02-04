@@ -5,3 +5,4 @@ virtualenv venv
 pip install -U pip
 pip install Django
 pip install psycopg2
+pip install dj-database-url
