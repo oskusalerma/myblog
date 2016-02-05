@@ -1,4 +1,5 @@
 *.sqlite3
 *.pyc
 venv
+staticfiles
 settings-dev.sh
