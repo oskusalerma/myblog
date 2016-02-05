@@ -30,7 +30,10 @@ DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
 ALLOWED_HOSTS = []
 
 if not DEBUG:
-    ALLOWED_HOSTS = ["osku-myblog.herokuapp.com"]
+    ALLOWED_HOSTS = [
+        "blog.oskusoft.com",
+        "osku-myblog.herokuapp.com",
+    ]
 
 # Application definition
 
