@@ -23,7 +23,7 @@
 
 <div id="topbar">
 {% if user.is_authenticated %}
-<small><span>User: {{ user.get_username }}</span></small>
+<small><span>User: {{ user.get_username }} (<a href="{% url 'main:logout' %}">Log out</a>)</span></small>
 <a href="{% url 'main:new-post' %}">New post</a>
 {% else %}
 <small><span>User: Not logged in</span></small>
