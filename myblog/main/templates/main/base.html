@@ -14,20 +14,24 @@
 
 <body>
 
+{% block header-outer %}
 <div id="header">
 {% block header %}
 <h1><a href="{% url 'main:home' %}">{{ blogInfo.title }}</a></h1>
 <p>{{ blogInfo.description }}</p>
 {% endblock %}
 </div>
+{% endblock %}
 
 <div id="topbar">
+{% block topbar %}
 {% if user.is_authenticated %}
-<small><span>User: {{ user.get_username }} (<a href="{% url 'main:logout' %}">Log out</a>)</span></small>
+<span>User: {{ user.get_username }} (<a href="{% url 'main:logout' %}">Log out</a>)</span>
 <a href="{% url 'main:new-post' %}">New post</a>
 {% else %}
-<small><span>User: Not logged in</span></small>
+<span>User: <a href="{% url 'main:login'%}?next={{ request.path | urlencode }}">Log in</a></span>
 {% endif %}
+{% endblock %}
 </div>
 
 <br>

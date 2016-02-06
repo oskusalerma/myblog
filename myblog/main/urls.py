@@ -23,6 +23,7 @@ app_name = "main"
 
 urlpatterns = [
     url(r"^$", views.home, name = "home"),
+    url(r"^login/$", auth_views.login, {"template_name" : "main/login.html"}, name = "login"),
     url(r"^logout/$", auth_views.logout, {"next_page" : "main:home"}, name = "logout"),
     url(r"^new-post/$", views.new_post, name = "new-post"),
     url(r"^post/(?P<post_id>[0-9]+)/$", views.post, name = "post"),

@@ -1,0 +1,27 @@
+{% extends "main/base.html" %}
+
+{% block header-outer %}
+{% endblock %}
+
+{% block topbar %}
+{% endblock %}
+
+
+{% block content %}
+
+<h1>Login</h1>
+
+<form action="{% url "main:login" %}" method="post">
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<input type="hidden" name="next" value="{{ next }}" />
+<input type="submit" value="Login" />
+
+</form>
+
+<br>
+<br>
+
+{% endblock %}
