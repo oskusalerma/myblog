@@ -2,14 +2,23 @@
 
 {% block content %}
 
-<h1>New post</h1>
+{% if post %}
 
+<h1>Edit post</h1>
+<form action="{% url "main:edit-post" post.pk %}" method="post">
+
+{% else %}
+
+<h1>New post</h1>
 <form action="{% url "main:new-post" %}" method="post">
+
+{% endif %}
+
 {% csrf_token %}
 
 {{ form.as_p }}
 
-<input type="submit" value="Post" />
+<input type="submit" value="Save" />
 
 </form>
 
