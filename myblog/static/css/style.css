@@ -22,6 +22,12 @@ body {
     color: black;
 }
 
+#archives {
+    float: right;
+    left: 50%;
+    position: absolute;
+}
+
 label {
     display: block;
 }

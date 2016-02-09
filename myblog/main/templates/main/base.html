@@ -36,6 +36,19 @@
 
 <br>
 
+{% block archives-outer %}
+<div id="archives">
+{% block archives %}
+<h4>Archives</h4>
+<ul>
+{% for month in archives %}
+<li><a href="{% url 'main:archives' month.year month.month %}">{{ month.month_name }} {{ month.year }}</a> ({{ month.nr_of_posts }})
+{% endfor %}
+</ul>
+{% endblock %}
+</div>
+{% endblock %}
+
 <div id="content">
 {% block content %}
 {% endblock %}
