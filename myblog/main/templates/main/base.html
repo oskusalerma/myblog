@@ -4,7 +4,7 @@
 <html>
 
 <head>
-<title>{{ blogInfo.title }}</title>
+<title>{{ blog_info.title }}</title>
 <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -17,8 +17,8 @@
 {% block header-outer %}
 <div id="header">
 {% block header %}
-<h1><a href="{% url 'main:home' %}">{{ blogInfo.title }}</a></h1>
-<p>{{ blogInfo.description }}</p>
+<h1><a href="{% url 'main:home' %}">{{ blog_info.title }}</a></h1>
+<p>{{ blog_info.description }}</p>
 {% endblock %}
 </div>
 {% endblock %}

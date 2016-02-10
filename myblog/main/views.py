@@ -4,23 +4,29 @@ from django.http import HttpResponse, HttpResponseForbidden
 from .models import BlogInfo, Post
 from .forms import PostForm
 
-def home(req):
-    bi = BlogInfo.objects.all()[0]
-    posts = Post.objects.all().order_by("-pub_date")[:5]
+def get_ctx(archives = True):
+    return {
+        "blog_info" : BlogInfo.objects.all()[0],
+        "archives" : archives and get_archives() or None,
+        "my_date_format" : "F j, Y, H:i",
+        }
 
-    return render(req, "main/home.html", {
-        "posts" : posts, "blogInfo" : bi, "archives" : get_archives()})
+def home(req):
+    ctx = get_ctx()
+    ctx["posts"] = Post.objects.all().order_by("-pub_date")[:5]
+
+    return render(req, "main/home.html", ctx)
 
 def archives(req, year, month):
-    bi = BlogInfo.objects.all()[0]
+    ctx = get_ctx()
 
-    posts = (Post.objects
-             .filter(pub_date__year = year)
-             .filter(pub_date__month = month)
-             .order_by("-pub_date"))
+    ctx["posts"] = (
+        Post.objects
+        .filter(pub_date__year = year)
+        .filter(pub_date__month = month)
+        .order_by("-pub_date"))
 
-    return render(req, "main/home.html", {
-        "posts" : posts, "blogInfo" : bi, "archives" : get_archives()})
+    return render(req, "main/home.html", ctx)
 
 def new_or_edit_post(req, post_id = None, is_edit = False):
     if is_edit:
@@ -51,14 +57,18 @@ def new_or_edit_post(req, post_id = None, is_edit = False):
     else:
         form = PostForm(instance = post)
 
-    return render(req, "main/new_post.html", {"form" : form, "blogInfo" : bi, "post" : post})
+    ctx = get_ctx(archives = False)
+    ctx["form"] = form
+    ctx["post"] = post
+
+    return render(req, "main/new_post.html", ctx)
 
 def post(req, post_id):
-    bi = BlogInfo.objects.all()[0]
-    post = get_object_or_404(Post, pk = post_id)
+    ctx = get_ctx()
 
-    return render(req, "main/post.html", {
-        "post" : post, "blogInfo" : bi, "archives" : get_archives()})
+    ctx["post"] = get_object_or_404(Post, pk = post_id)
+
+    return render(req, "main/post.html", ctx)
 
 def get_archives():
     posts = Post.objects.all().order_by("-pub_date")
