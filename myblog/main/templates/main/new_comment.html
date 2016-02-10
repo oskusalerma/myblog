@@ -1,0 +1,31 @@
+{% extends "main/base.html" %}
+
+{% block archives-outer %}
+{% endblock %}
+
+{% block content %}
+
+{% if comment %}
+
+<h1>Edit comment</h1>
+<form action="{% url "main:edit-comment" comment.pk %}" method="post">
+
+{% else %}
+
+<h1>New comment</h1>
+<form action="{% url "main:new-comment" post_id %}" method="post">
+
+{% endif %}
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<input type="submit" value="Save" />
+
+</form>
+
+<br>
+<br>
+
+{% endblock %}

@@ -21,3 +21,13 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+@python_2_unicode_compatible
+class Comment(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
+    post = models.ForeignKey(Post, on_delete = models.CASCADE)
+    pub_date = models.DateTimeField(auto_now_add = True)
+    content = models.TextField()
+
+    def __str__(self):
+        return "%s - %s" % (self.author.get_username(), self.pub_date)

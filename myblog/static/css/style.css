@@ -43,7 +43,6 @@ label {
 
 .post {
     width: 40em;
-    /* background-color: ivory; */
 }
 
 h2 {
@@ -56,4 +55,10 @@ h2 {
 
 .post h2 a:visited {
     color: black;
+}
+
+.comment {
+    width: 40em;
+    background-color: #eeeeee;
+    color: #666666;
 }

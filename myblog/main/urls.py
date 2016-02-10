@@ -27,6 +27,8 @@ urlpatterns = [
     url(r"^login/$", auth_views.login, {"template_name" : "main/login.html"}, name = "login"),
     url(r"^logout/$", auth_views.logout, {"next_page" : "main:home"}, name = "logout"),
     url(r"^new-post/$", views.new_or_edit_post, name = "new-post"),
+    url(r"^new-comment/(?P<post_id>[0-9]+)/$", views.new_or_edit_comment, name = "new-comment"),
     url(r"^post/(?P<post_id>[0-9]+)/$", views.post, name = "post"),
     url(r"^post/(?P<post_id>[0-9]+)/edit/$", views.new_or_edit_post, {"is_edit" : True}, name = "edit-post"),
+    url(r"^comment/(?P<comment_id>[0-9]+)/edit/$", views.new_or_edit_comment, {"is_edit" : True}, name = "edit-comment"),
 ]
