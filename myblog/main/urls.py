@@ -17,7 +17,7 @@ from django.conf.urls import url
 
 from django.contrib.auth import views as auth_views
 
-from . import views
+from . import views, feeds
 
 app_name = "main"
 
@@ -31,4 +31,5 @@ urlpatterns = [
     url(r"^post/(?P<post_id>[0-9]+)/$", views.post, name = "post"),
     url(r"^post/(?P<post_id>[0-9]+)/edit/$", views.new_or_edit_post, {"is_edit" : True}, name = "edit-post"),
     url(r"^comment/(?P<comment_id>[0-9]+)/edit/$", views.new_or_edit_comment, {"is_edit" : True}, name = "edit-comment"),
+    url(r"^feeds/posts/$", feeds.Posts(), name = "feeds-posts"),
 ]
