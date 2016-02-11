@@ -32,4 +32,5 @@ urlpatterns = [
     url(r"^post/(?P<post_id>[0-9]+)/edit/$", views.new_or_edit_post, {"is_edit" : True}, name = "edit-post"),
     url(r"^comment/(?P<comment_id>[0-9]+)/edit/$", views.new_or_edit_comment, {"is_edit" : True}, name = "edit-comment"),
     url(r"^feeds/posts/$", feeds.Posts(), name = "feeds-posts"),
+    url(r"^feeds/comments/$", feeds.Comments(), name = "feeds-comments"),
 ]
