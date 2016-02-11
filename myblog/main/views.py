@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseForbidden
 
 from .models import BlogInfo, Post, Comment
@@ -97,8 +98,11 @@ def new_or_edit_comment(req, post_id = None, comment_id = None, is_edit = False)
 
             newComment.save()
 
-            # TODO: redirect to new comment added directly (using #commentId)
-            return redirect("main:post", post_id = post_id)
+            url = "%s#comment_%s" % (
+                reverse("main:post", kwargs = {"post_id" : post_id}),
+                newComment.pk)
+
+            return redirect(url)
 
     else:
         form = CommentForm(instance = comment)
