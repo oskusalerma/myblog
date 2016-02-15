@@ -49,8 +49,6 @@ def new_or_edit_post(req, post_id = None, is_edit = False):
     if not allow:
         return HttpResponseForbidden("forbidden")
 
-    bi = BlogInfo.objects.all()[0]
-
     if req.method == "POST":
         form = PostForm(req.POST, instance = post)
 
@@ -84,8 +82,6 @@ def new_or_edit_comment(req, post_id = None, comment_id = None, is_edit = False)
 
     if not allow:
         return HttpResponseForbidden("forbidden")
-
-    bi = BlogInfo.objects.all()[0]
 
     if req.method == "POST":
         form = CommentForm(req.POST, instance = comment)
