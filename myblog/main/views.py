@@ -1,3 +1,5 @@
+import collections
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseForbidden
@@ -13,10 +15,25 @@ def get_ctx(archives = True):
         }
 
 def add_nr_of_comments(posts):
-    # TODO: this is very slow, use prefetch_related or something at a
-    # higher level to retrieve all the comment counts in one query
+    postIds = [post.pk for post in posts]
+
+    # TODO: this is the SQL query I'd like to do:
+    #
+    # select count(*),post_id
+    # from main_comment
+    # where post_id in (postIds)
+    # group by post_id;
+    #
+    # but I don't know yet how to do that in the Django ORM.
+
+    comments = Comment.objects.filter(post_id__in = postIds).values_list("post_id", flat = True)
+    commentsPerPost = collections.defaultdict(int)
+
+    for postId in comments:
+        commentsPerPost[postId] += 1
+
     for post in posts:
-        post.nr_of_comments = Comment.objects.filter(post_id = post.pk).count()
+        post.nr_of_comments = commentsPerPost[post.pk]
 
     return posts
 
@@ -125,18 +142,29 @@ def post(req, post_id):
     return render(req, "main/post.html", ctx)
 
 def get_archives():
-    posts = Post.objects.all().order_by("-pub_date")
+    # TODO: this SQL query would get what I want in one query without
+    # having to manually go through each post, but I don't know yet how to
+    # achieve it it Django's ORM:
+    #
+    # select count(*),
+    #  extract('year' from pub_date) as year,
+    #  extract('month' from pub_date) as month
+    # from main_post
+    # group by extract('year' from pub_date),
+    #  extract('month' from pub_date);
+
+    posts = Post.objects.all().order_by("-pub_date").values_list("pub_date", flat = True)
     ret = []
 
     for i, post in enumerate(posts):
-        if (i > 0) and ((posts[i - 1].pub_date.year == post.pub_date.year) and
-                        (posts[i - 1].pub_date.month == post.pub_date.month)):
+        if (i > 0) and ((posts[i - 1].year == post.year) and
+                        (posts[i - 1].month == post.month)):
             ret[-1]["nr_of_posts"] += 1
         else:
             ret.append({
-                "month" : post.pub_date.strftime("%m"),
-                "month_name" : post.pub_date.strftime("%B"),
-                "year" : post.pub_date.year,
+                "month" : post.strftime("%m"),
+                "month_name" : post.strftime("%B"),
+                "year" : post.year,
                 "nr_of_posts" : 1})
 
     return ret
