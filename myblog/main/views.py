@@ -22,7 +22,7 @@ def add_nr_of_comments(posts):
 
 def home(req):
     ctx = get_ctx()
-    ctx["posts"] = add_nr_of_comments(Post.objects.all().order_by("-pub_date")[:5])
+    ctx["posts"] = add_nr_of_comments(Post.objects.select_related("author").all().order_by("-pub_date")[:5])
 
     return render(req, "main/home.html", ctx)
 
@@ -31,6 +31,7 @@ def archives(req, year, month):
 
     ctx["posts"] = add_nr_of_comments(
         Post.objects
+        .select_related("author")
         .filter(pub_date__year = year)
         .filter(pub_date__month = month)
         .order_by("-pub_date"))
