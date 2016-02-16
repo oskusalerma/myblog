@@ -3,13 +3,23 @@ import collections
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseForbidden
+from django.core.cache import cache
 
 from .models import BlogInfo, Post, Comment
 from .forms import PostForm, CommentForm
 
+# cache key
+BI_KEY = "BlogInfo"
+
 def get_ctx(archives = True):
+    bi = cache.get(BI_KEY)
+
+    if not bi:
+        bi = BlogInfo.objects.all()[0]
+        cache.set(BI_KEY, bi)
+
     return {
-        "blog_info" : BlogInfo.objects.all()[0],
+        "blog_info" : bi,
         "archives" : archives and get_archives() or None,
         "my_date_format" : "F j, Y, H:i",
         }
