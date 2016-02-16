@@ -16,7 +16,7 @@ class BlogInfo(models.Model):
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     title = models.CharField(max_length = 100)
-    pub_date = models.DateTimeField(auto_now_add = True)
+    pub_date = models.DateTimeField(auto_now_add = True, db_index = True)
     content = models.TextField()
 
     def __str__(self):
