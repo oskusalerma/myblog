@@ -131,8 +131,8 @@ def new_or_edit_comment(req, post_id = None, comment_id = None, is_edit = False)
 def post(req, post_id):
     ctx = get_ctx()
 
-    post = get_object_or_404(Post, pk = post_id)
-    comments = Comment.objects.filter(post_id = post_id).order_by("pub_date")
+    post = get_object_or_404(Post.objects.select_related("author"), pk = post_id)
+    comments = Comment.objects.select_related("author").filter(post_id = post_id).order_by("pub_date")
     post.nr_of_comments = len(comments)
 
     ctx["post"] = post
