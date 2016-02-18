@@ -22,7 +22,7 @@ body {
     color: black;
 }
 
-#archives {
+#sidebar {
     float: right;
     left: 50%;
     position: absolute;
