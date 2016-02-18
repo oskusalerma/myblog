@@ -54,6 +54,17 @@
 <li><a href="{% url 'main:feeds-posts' %}">Posts</a>
 <li><a href="{% url 'main:feeds-comments' %}">Comments</a>
 </ul>
+
+<br>
+
+<h4>Search</h4>
+
+<form action="{% url "main:search" %}" method="get">
+<input name="q" maxlength="30" type="text" placeholder="Search text..." />
+<br>
+
+</form>
+
 </div>
 
 {% endblock %}

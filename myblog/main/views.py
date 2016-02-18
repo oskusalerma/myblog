@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseForbidden
 from django.core.cache import cache
+from django.db.models import Q
 
 from .models import BlogInfo, Post, Comment
 from .forms import PostForm, CommentForm
@@ -150,6 +151,22 @@ def post(req, post_id):
     ctx["show_comments"] = True
 
     return render(req, "main/post.html", ctx)
+
+def search(req):
+    ctx = get_ctx(archives = False)
+
+    query = req.GET.get("q")
+    ctx["query"] = query
+
+    if query:
+        ctx["posts"] = (
+            Post.objects
+            .filter(
+                Q(title__icontains = query) |
+                Q(content__icontains = query))
+            .order_by("-pub_date"))
+
+    return render(req, "main/search_results.html", ctx)
 
 def get_archives():
     # TODO: this SQL query would get what I want in one query without
