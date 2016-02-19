@@ -153,7 +153,7 @@ def post(req, post_id):
     return render(req, "main/post.html", ctx)
 
 def search(req):
-    ctx = get_ctx(archives = False)
+    ctx = get_ctx()
 
     query = req.GET.get("q")
     ctx["query"] = query
