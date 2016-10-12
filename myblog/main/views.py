@@ -139,6 +139,18 @@ def new_or_edit_comment(req, post_id = None, comment_id = None, is_edit = False)
 
     return render(req, "main/new_comment.html", ctx)
 
+def delete_comment(req, comment_id):
+    comment = get_object_or_404(Comment, pk = comment_id)
+    post_id = comment.post.pk
+    allow = (comment.author == req.user) or req.user.is_superuser
+
+    if not allow:
+        return HttpResponseForbidden("forbidden")
+
+    comment.delete()
+
+    return redirect("main:post", post_id = comment.post.pk)
+
 def post(req, post_id):
     ctx = get_ctx()
 
