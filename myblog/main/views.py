@@ -72,7 +72,7 @@ def new_or_edit_post(req, post_id = None, is_edit = False):
         allow = (post.author == req.user) or req.user.is_superuser
     else:
         post = None
-        allow = req.user.is_authenticated()
+        allow = req.user.is_authenticated
 
     if not allow:
         return HttpResponseForbidden("forbidden")
@@ -106,7 +106,7 @@ def new_or_edit_comment(req, post_id = None, comment_id = None, is_edit = False)
         allow = (comment.author == req.user) or req.user.is_superuser
     else:
         comment = None
-        allow = req.user.is_authenticated()
+        allow = req.user.is_authenticated
 
     if not allow:
         return HttpResponseForbidden("forbidden")

@@ -2,6 +2,9 @@
 
 set -e
 
+. venv/bin/activate
+cd myblog
+
 . myblog/settings-dev.sh
 
 ./manage.py collectstatic --noinput
